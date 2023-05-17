@@ -37,7 +37,7 @@ class MiSQLite (context: Context) : SQLiteOpenHelper(
 
         val db=this.writableDatabase
         db.insert("usuarios",null,datos)
-        db.close()
+       db.close()
     }
 
     //https://www.youtube.com/watch?v=skBsS1fOKLY&list=PL0bfr51v6JJEh1xtggpg57wN6m5Us3cb1&index=52
