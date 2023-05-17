@@ -26,9 +26,7 @@ class ListaActivity : AppCompatActivity(){
         binding= inflate(layoutInflater)
         setContentView(binding.root)
 
-
         usuariosDBHelper = MiSQLite(this)
-
 
         val db: SQLiteDatabase = usuariosDBHelper.readableDatabase
         // preparamos el cursor que leera los datos
@@ -38,9 +36,6 @@ class ListaActivity : AppCompatActivity(){
         binding.lvDatos.adapter=adaptador
 
         db.close()
-
-
-
     }
 
     //https://www.youtube.com/watch?v=V2O_DTFFPiQ&list=PL0bfr51v6JJEh1xtggpg57wN6m5Us3cb1&index=53
