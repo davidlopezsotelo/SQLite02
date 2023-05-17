@@ -2,10 +2,9 @@ package com.davidlopez.sqlite02
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.view.isNotEmpty
+import androidx.appcompat.app.AppCompatActivity
 import com.davidlopez.sqlite02.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             val db:SQLiteDatabase= usuariosDBHelper.readableDatabase
 
             // preparamos el cursor que leera los datos
-            val cursor = db.rawQuery("SELECT * FROM  usuarios",null)
+            val cursor = db.rawQuery("SELECT * FROM  ${MiSQLite.TABLA_USUARIOS}",null)
 
 
             if (cursor.moveToFirst()){//movemos el cursor al principio
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btBorrar.setOnClickListener {
 
-            var cantidad=0
+            var cantidad: Int
 
             if (binding.etId.text.isNotBlank()) {
 

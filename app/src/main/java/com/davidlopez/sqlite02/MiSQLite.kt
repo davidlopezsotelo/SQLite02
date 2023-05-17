@@ -10,11 +10,21 @@ import android.database.sqlite.SQLiteOpenHelper
 class MiSQLite (context: Context) : SQLiteOpenHelper(
     context,"Usuarios.db",null,1)
 {
+
+    //creamos un companion objet para que no halla errores al introducir los datos
+
+    companion object{
+
+        val TABLA_USUARIOS ="usuarios"
+        val CAMPO_ID ="_id"
+        val CAMPO_NOMBRE ="nombre"
+        val CAMPO_EMAIL ="email"
+    }
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val ordenCreacion ="CREATE TABLE usuarios" +
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT, email TEXT)"
+        val ordenCreacion ="CREATE TABLE ${TABLA_USUARIOS}" +
+                "(${CAMPO_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "${CAMPO_NOMBRE} TEXT, ${CAMPO_EMAIL} TEXT)"
 
         db!!.execSQL(ordenCreacion)
 
@@ -22,7 +32,7 @@ class MiSQLite (context: Context) : SQLiteOpenHelper(
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
-        val ordenBorrado ="DROP TABLE IF EXISTS usuarios"
+        val ordenBorrado ="DROP TABLE IF EXISTS ${TABLA_USUARIOS}"
 
         db!!.execSQL(ordenBorrado)
 
@@ -32,11 +42,11 @@ class MiSQLite (context: Context) : SQLiteOpenHelper(
 
     fun insertDato(nombre:String,email:String){
         val datos =ContentValues()
-        datos.put("nombre",nombre)
-        datos.put("email",email)
+        datos.put(CAMPO_NOMBRE,nombre)
+        datos.put(CAMPO_EMAIL,email)
 
         val db=this.writableDatabase
-        db.insert("usuarios",null,datos)
+        db.insert(TABLA_USUARIOS,null,datos)
        db.close()
     }
 
@@ -47,7 +57,7 @@ class MiSQLite (context: Context) : SQLiteOpenHelper(
         val args = arrayOf(id.toString())
 
         val db=this.writableDatabase
-        val borrados=db.delete("usuarios","_id =?",args)
+        val borrados=db.delete(TABLA_USUARIOS,"${CAMPO_ID}=?",args)
 
         db.close()
         return borrados
@@ -59,11 +69,11 @@ class MiSQLite (context: Context) : SQLiteOpenHelper(
 
         val datos =ContentValues()
 
-        datos.put("nombre",nombre)
-        datos.put("email",email)
+        datos.put(CAMPO_NOMBRE,nombre)
+        datos.put(CAMPO_EMAIL,email)
 
         val db=this.writableDatabase
-        db.update("usuarios",datos,"_id =?",args)
+        db.update(TABLA_USUARIOS,datos,"${CAMPO_ID}=?",args)
         db.close()
     }
 
